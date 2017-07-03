@@ -39,6 +39,7 @@ module.exports = function(grunt) {
                 src: [
                     'assets/css/vendor/normalize.css',
                     'assets/css/vendor/font-awesome.css',
+                    'assets/css/dev/microclearfix.css',
                     'assets/css/dev/style.css'
                 ],
                 dest: 'assets/css/built/style.css'

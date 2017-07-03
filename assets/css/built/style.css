@@ -2796,6 +2796,32 @@ template {
   overflow: visible;
   clip: auto;
 }
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
 /*! IPSC app v1.0.0 | WTFPL License */
 
 body {
@@ -2829,13 +2855,70 @@ a {
     margin-bottom: 0;
 }
 
+.ipsc-trainings--drill .main-text-content {
+    margin-bottom: 24px;
+}
+
+.ipsc-trainings--drill form {
+    margin-bottom: 24px;
+}
+
+.ipsc-trainings--drill form .labels-wrapper {
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.ipsc-trainings--drill form label.cf {
+    display: block;
+}
+
+@media (max-width: 448px) {
+    .ipsc-trainings--drill form label.cf {
+        margin-bottom: 12px;
+    }
+}
+
+.ipsc-trainings--drill form label.cf span {
+    float: left;
+}
+
+.ipsc-trainings--drill form label.cf input[type="number"] {
+    float: right;
+}
+
+@media (max-width: 448px) {
+    .ipsc-trainings--drill form label.cf span,
+    .ipsc-trainings--drill form label.cf input[type="number"] {
+        display: block;
+        float: none;
+    }
+}
+
+.ipsc-trainings--drill form input:not([type="range"]) {
+    border: 1px solid #333;
+    border-radius: 3px;
+}
+
 .ipsc-trainings--drill form input[type="number"] {
     height: 28px;
     box-sizing: border-box;
+    padding: 6px;
 }
 
 .ipsc-trainings--drill form input[type="range"] {
-    width: 90%;
+    width: 95%;
+}
+
+@media (max-width: 767px) {
+    .ipsc-trainings--drill form input[type="range"] {
+        width: 88%;
+    }
+}
+
+#ipsc-aimbot-drill-selected-range-number {
+    margin-bottom: 12px;
+    font-weight: bold;
 }
 
 .ipsc-trainings--drill form button {
@@ -2889,7 +2972,7 @@ a {
     margin-right: auto;
 }
 
-.ipsc-content--box-contetn {
+.ipsc-content--box-content {
     box-sizing: border-box;
     padding-left: 24px;
     padding-right: 24px;

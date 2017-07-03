@@ -15,63 +15,63 @@
  */
 ( function( window, document ) {
 
-    // Namespaces
+    /**
+     * Namespaces
+     * @type {*|{}}
+     */
     var IPSC = IPSC || {};
 
-    // Declarations
+    /**
+     * Declarations
+     */
     var synth,
         aimbot_drill_start,
         aimbot_drill_stop,
-        aimbot_interval,
-        aimbot_field_index;
+        aimbot_drill_range_slider,
+        aimbot_drill_range_display,
+        aimbot_interval;
 
     document.onreadystatechange = function() {
         if ( document.readyState == 'complete' ) {
 
-            // Definitions
-            synth              = window.speechSynthesis;
-            aimbot_drill_start = document.querySelector( '#ipsc-aimbot-drill-start' );
-            aimbot_drill_stop  = document.querySelector( '#ipsc-aimbot-drill-stop' );
-            aimbot_field_index = 0;
+            /**
+             * Definitions
+             */
+            synth = window.speechSynthesis;
 
-            // Events
-            /*document.querySelector( '#ipsc-add-new-range' ).addEventListener( 'click', function() {
-                var _range = document.querySelector( '#ipsc-aimbot-drill .field-wrapper'),
-                    _clone = _range.cloneNode( true);
-
-                aimbot_field_index = _range.dataset.index;
-
-                _clone.dataset.index++;
-                console.log ( _clone.dataset.index );
-                if ( _clone.dataset.index < 2 ) {
-                    document.querySelector( '#ipsc-aimbot-drill .fields-wrapper').appendChild( _clone );
-                }
-            }, true );*/
+            // AimBot Drill
+            aimbot_drill_start         = document.querySelector( '#ipsc-aimbot-drill-start' );
+            aimbot_drill_stop          = document.querySelector( '#ipsc-aimbot-drill-stop' );
+            aimbot_drill_range_slider  = document.querySelector( '#ipsc-aimbot-drill-range-slider' );
+            aimbot_drill_range_display = document.querySelector( '#ipsc-aimbot-drill-selected-range-number');
 
             /**
-             * AimBot Drill Starter
+             * Events
              */
-            aimbot_drill_start.addEventListener( 'click', function( evt ) {
+
+            // AimBot Drill Starter
+            aimbot_drill_start.addEventListener( 'click', function() {
                 var _cycle_index = 1,
-                    _that = this; // minimum 1 cycle
+                    _that = this;
 
                 this.classList.toggle( 'active' );
 
                 IPSC.AimBotDrill.cycles    = parseInt( document.querySelector( '#ipsc-aimbot-cycles').value );
                 IPSC.AimBotDrill.delayer   = parseInt( document.querySelector( '#ipsc-aimbot-start-delay').value );
                 IPSC.AimBotDrill.timer     = parseInt( document.querySelector( '#ipsc-aimbot-cycle-delay').value );
-                IPSC.AimBotDrill.range     = document.querySelectorAll( '#ipsc-aimbot-drill .ipsc-aimbot-array');
+                IPSC.AimBotDrill.range     = parseInt( aimbot_drill_range_slider.value );
                 IPSC.AimBotDrill.range_num = 2; // torso - head
                 IPSC.AimBotDrill.utter     = new SpeechSynthesisUtterance;
 
                 // Utter Settings
-                IPSC.AimBotDrill.utter.voice = get_voice( synth.getVoices(), 'Victoria' );
+                // Causing problems as voices are not async loaded as it app on mobile devices
+                //if ( synth.onvoiceschanged !== undefined ) IPSC.AimBotDrill.utter.voice = get_voice( synth.getVoices(), 'Victoria' );
 
                 if ( IPSC.AimBotDrill.delayer > 0 ) {
                     setTimeout( function() {
                         aimbot_interval = setInterval( function() {
                             if ( IPSC.AimBotDrill.cycles >= _cycle_index ) {
-                                speak_rand_num( IPSC.AimBotDrill );
+                                IPSC.AimBotDrill.speak_rand_num();
                             }
                             else {
                                 clearInterval( aimbot_interval );
@@ -88,6 +88,10 @@
                 aimbot_drill_start.classList.remove( 'active' );
             }, true );
 
+            aimbot_drill_range_slider.addEventListener( 'input', function() {
+                aimbot_drill_range_display.innerHTML = this.value;
+            }, true );
+
         }
     };
 
@@ -97,18 +101,10 @@
 
         voices.forEach( function( voice ) {
             if ( voice.name === voice_name ) _data = voice;
+            else if ( voice.lang === 'en-US') _data = voice;
         } );
 
         return _data;
-    }
-
-    function speak_rand_num( _data ) {
-        var _index = 0;
-
-        for ( ; _index < _data.range_num; _index++ ) {
-            _data.utter.text = Math.floor( Math.random() * _data.range[0].value ) + 1;
-            synth.speak( _data.utter );
-        }
     }
 
 
@@ -117,12 +113,12 @@
      */
     IPSC.AimBotDrill = function()
     {
-        var speak_rand_num = function( _data ) {
+        var speak_rand_num = function() {
             var _index = 0;
 
-            for ( ; _index < _data.range_num; _index++ ) {
-                _data.utter.text = Math.floor( Math.random() * _data.range[0].value ) + 1;
-                synth.speak( _data.utter );
+            for ( ; _index < AimBotDrillPublic.range_num; _index++ ) {
+                AimBotDrillPublic.utter.text = Math.floor( Math.random() * AimBotDrillPublic.range ) + 1;
+                synth.speak( AimBotDrillPublic.utter );
             }
         };
 

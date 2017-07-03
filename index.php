@@ -23,25 +23,27 @@
         <h1>IPSC training helper</h1>
     </header>
     <main class="ipsc-app--main-content">
-        <div class="ipsc-trainings--wrapper ipsc-content--box-contetn">
+        <div class="ipsc-trainings--wrapper ipsc-content--box-content">
             <section class="ipsc-trainings--drill">
                 <header>
                     <h2>Aimbot Drill - Target Acquisition Speed</h2>
                     <p>A simple yet effective shooting drill to practice fast target identification/acquisition.</p>
                 </header>
-                <div>
-                    <p><strong>* Notice :</strong> at this time max 2 range are supported due to the browser limitations.</p>
+                <div class="main-text-content">
+                    <p><strong>* Notice :</strong> at this time only <strong>Chrome</strong> browser is supported.</p>
+                    <p>Application is intended to give support for T.REX ARMS Aimbot Drill. If you don't have buddy to yell the numbers, you can use this application.</p>
+                    <p>LINK : <a href="https://www.youtube.com/watch?v=Q4wKWsCFAfU" target="_blank">Aimbot Drill to Increase Target Acquisition Speed</a></p>
                 </div>
                 <form id="ipsc-aimbot-drill">
-                    <div>
-                        <label>How many cycles : <input id="ipsc-aimbot-cycles" type="number" min="1" value="1"></label><br>
-                        <label>Start delay (second) : <input id="ipsc-aimbot-start-delay" type="number" min="1" value="1"></label><br>
-                        <label>Delay between shots (second) : <input id="ipsc-aimbot-cycle-delay" type="number" min="1" value="1"></label><br>
-                        <div class="fields-wrapper">
-                            <p class="field-wrapper" data-index="0"><span>1</span> <input type="range" class="ipsc-aimbot-array" min="1" max="20" value="1"> <span>20</span></p>
-                        </div>
-                        <?php /*<button id="ipsc-add-new-range" type="button">Add range</button>*/ ?>
+                    <div class="labels-wrapper ipsc-content--box-centered">
+                        <label class="cf"><span>How many cycles :</span> <input id="ipsc-aimbot-cycles" type="number" min="1" value="1"></label>
+                        <label class="cf"><span>Start delay (second) :</span> <input id="ipsc-aimbot-start-delay" type="number" min="1" value="1"></label>
+                        <label class="cf"><span>Delay between shots (second) :</span> <input id="ipsc-aimbot-cycle-delay" type="number" min="1" value="1"></label>
                     </div>
+                    <p class="field-wrapper" data-index="0">
+                        <span>1</span> <input id="ipsc-aimbot-drill-range-slider" type="range" class="ipsc-aimbot-array" min="1" max="20" value="1"> <span>20</span>
+                    </p>
+                    <p id="ipsc-aimbot-drill-selected-range-number" class="ipsc-text--centered">1</p>
                     <button id="ipsc-aimbot-drill-start" class="ipsc-text--centered" type="button">START DRILL</button>
                     <button id="ipsc-aimbot-drill-stop" class="ipsc-text--centered" type="button">STOP DRILL</button>
                 </form>
