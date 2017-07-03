@@ -1,0 +1,18 @@
+{
+  "name": "information-slovenia-wp",
+  "description": "Information Slovenia web place for marketing!",
+  "version": "1.0",
+  "dependencies": {
+    "normalize-css": "^5.0.0",
+    "font-awesome": "^4.7.0"
+  },
+  "exportsOverride": {
+    "normalize-css": {
+      "css": "normalize.css"
+    },
+    "font-awesome": {
+      "css": "css/font-awesome.css",
+      "fonts": "fonts/*"
+    }
+  }
+}
