@@ -122,6 +122,10 @@
             }
         };
 
+        var set_lang = function( lang ) {
+            AimBotDrillPublic.utter.lang = lang;
+        };
+
         var AimBotDrillPublic = {
             cycles    : 1,
             delayer   : 1,

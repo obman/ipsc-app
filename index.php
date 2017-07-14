@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="assets/css/style.min.css">
 </head>
 <body>
-<div class="ipsc-content ipsc-content--box-centered">
+<div class="ipsc-content--box-centered">
     <header class="ipsc-app--header-main ipsc-text--centered">
         <h1>IPSC training helper</h1>
     </header>
-    <main class="ipsc-app--main-content">
-        <div class="ipsc-trainings--wrapper ipsc-content--box-content">
+    <main class="ipsc-app--main-content ipsc-content ipsc-content--box-content ipsc-content--box-centered">
+        <div class="ipsc-trainings--wrapper">
             <section class="ipsc-trainings--drill">
                 <header>
                     <h2>Aimbot Drill - Target Acquisition Speed</h2>
@@ -50,7 +50,17 @@
             </section>
         </div>
     </main>
-    <footer class="ipsc-app--footer-main"></footer>
+    <footer class="ipsc-app--footer-main ipsc-text--centered">
+        <div class="ipsc-app--socials-wrapper">
+            <a href="#" class="fa fa-facebook-square" title="Facebook Sharer" target="_blank"></a>
+            <a href="#" class="fa fa-twitter-square" title="Twitter Sharer" target="_blank"></a>
+            <a href="#" class="fa fa-google-plus-square" title="Google+ Sharer" target="_blank"></a>
+            <a href="#" class="fa fa-pinterest-square" title="Pinterest Sharer" target="_blank"></a>
+        </div>
+        <p>Developed with <i class="fa fa-magic"></i> and <i class="fa fa-beer"></i></p>
+        <?php date_default_timezone_set( 'Europe/Ljubljana' ); ?>
+        <small>&copy; Copyright <?= date( 'Y' ); ?> Yetac. All Rights Reserved.</small>
+    </footer>
 </div>
 <script src="assets/js/script.min.js"></script>
 </body>
