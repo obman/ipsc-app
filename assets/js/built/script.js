@@ -29,7 +29,10 @@
         aimbot_drill_stop,
         aimbot_drill_range_slider,
         aimbot_drill_range_display,
-        aimbot_interval;
+        aimbot_interval,
+
+        aimbot_storage_wrapper,
+        aimbot_storage_section;
 
     document.onreadystatechange = function() {
         if ( document.readyState == 'complete' ) {
@@ -45,22 +48,25 @@
             aimbot_drill_range_slider  = document.querySelector( '#ipsc-aimbot-drill-range-slider' );
             aimbot_drill_range_display = document.querySelector( '#ipsc-aimbot-drill-selected-range-number');
 
+            aimbot_storage_wrapper = document.querySelector( '#ipsc-aimbot-cycles-storage' );
+            aimbot_storage_section = document.querySelector( '#ipsc-aimbot-cycle-excerpt' );
+
             /**
              * Events
              */
-
             // AimBot Drill Starter
             aimbot_drill_start.addEventListener( 'click', function() {
                 var _cycle_index = 1,
                     _that = this;
 
                 this.classList.toggle( 'active' );
+                IPSC.AimBotStorage.AimBotCycleTmpData = [];
 
                 IPSC.AimBotDrill.cycles    = parseInt( document.querySelector( '#ipsc-aimbot-cycles').value );
                 IPSC.AimBotDrill.delayer   = parseInt( document.querySelector( '#ipsc-aimbot-start-delay').value );
                 IPSC.AimBotDrill.timer     = parseInt( document.querySelector( '#ipsc-aimbot-cycle-delay').value );
                 IPSC.AimBotDrill.range     = parseInt( aimbot_drill_range_slider.value );
-                IPSC.AimBotDrill.range_num = 2; // torso - head
+                IPSC.AimBotDrill.range_num = 2; // torso <-> head
                 IPSC.AimBotDrill.utter     = new SpeechSynthesisUtterance;
 
                 // Utter Settings
@@ -76,6 +82,8 @@
                             else {
                                 clearInterval( aimbot_interval );
                                 _that.classList.remove( 'active' );
+                                IPSC.AimBotStorage.AimBotCycleData.push( IPSC.AimBotStorage.AimBotCycleTmpData );
+                                display_cycle( aimbot_storage_wrapper, aimbot_storage_section );
                             }
                             _cycle_index++;
                         }, IPSC.AimBotDrill.timer * 1000 );
@@ -107,19 +115,53 @@
         return _data;
     }
 
+    function display_cycle( wrapper, section ) {
+        var _classdisabled = 'ipsc--disabled',
+            _html,
+            _index = 0,
+            _app_cycle = IPSC.AimBotStorage.AimBotTrainingCycles || 0;
+
+        if ( wrapper.classList.contains( _classdisabled ) ) wrapper.classList.remove( _classdisabled );
+
+        _html = '<div class="ipsc-aimbot-cycle-round">';
+        _html += '<p>' + ( _app_cycle + 1 ) + '. session</p>';
+        for ( ; _index < IPSC.AimBotStorage.AimBotCycleData[_app_cycle].length; _index++ ) {
+            _html += '<div class="cell">' + ( _index + 1 ) + ': ' + IPSC.AimBotStorage.AimBotCycleData[_app_cycle][_index].join( ', ' ) + '</div>';
+        }
+        _html += '</div>';
+
+        IPSC.AimBotStorage.AimBotTrainingCycles++;
+        section.innerHTML += _html;
+    }
+
 
     /**
      * Modules
      */
+    IPSC.AimBotStorage = function() {
+        return AimBotStoragePublic = {
+            AimBotTrainingCycles : 0,
+            AimBotCycleTmpData: [], // store temporary data
+            AimBotCycleData : []
+        };
+    }();
+
     IPSC.AimBotDrill = function()
     {
         var speak_rand_num = function() {
-            var _index = 0;
+            var _index = 0,
+                _rand_num = 0,
+                _cycle_data = [];
 
             for ( ; _index < AimBotDrillPublic.range_num; _index++ ) {
-                AimBotDrillPublic.utter.text = Math.floor( Math.random() * AimBotDrillPublic.range ) + 1;
+                _rand_num = Math.floor( Math.random() * AimBotDrillPublic.range ) + 1;
+                _cycle_data.push( _rand_num );
+
+                AimBotDrillPublic.utter.text = _rand_num;
                 synth.speak( AimBotDrillPublic.utter );
             }
+
+            IPSC.AimBotStorage.AimBotCycleTmpData.push( _cycle_data );
         };
 
         var set_lang = function( lang ) {

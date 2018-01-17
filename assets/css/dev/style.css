@@ -140,6 +140,20 @@ a {
     outline: none;
 }
 
+/* Cycles */
+.ipsc-aimbot-cycle-round {
+    display: inline-block;
+    width: 23%;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+.ipsc-aimbot-cycle-round .cell {
+    box-sizing: border-box;
+    padding: 4px 8px;
+    border: 1px solid #222;
+}
+
 
 /** FOOTER **/
 .ipsc-app--footer-main {
@@ -212,4 +226,8 @@ a {
 
 .ipsc-text--centered {
     text-align: center;
+}
+
+.ipsc--disabled {
+    display: none;
 }
