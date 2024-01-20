@@ -34,7 +34,7 @@ services:
     volumes:
       - ./certbot-etc:/etc/letsencrypt
       - ./public:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email internetnestrani.si@gmail.com --agree-tos --no-eff-email --force-renewal -d ipsc-mobile-app.sample.si -d www.ipsc-mobile-app.sample.si
+    command: certonly --webroot --webroot-path=/var/www/html --email internetnestrani.si@gmail.com --agree-tos --no-eff-email ${SSL_ENV} -d ipsc-mobile-app.sample.si -d www.ipsc-mobile-app.sample.si
     networks:
       - app-network
 
