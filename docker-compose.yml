@@ -1,26 +1,30 @@
 version: '3'
 
 services:
-  php:
-    image: php:8.3-fpm
+  php-fpm:
+    image: php:8-fpm
+    container_name: php-fpm
     volumes:
       - ./config/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
-      - ./public
+      - ./public:/var/www/html
     networks:
-    - app-network
-      
+      - app-network
+
   nginx:
     image: nginx:latest
+    container_name: nginx
     ports:
       - ${IP}:${PORT_HTTP}:80
-      - ${IP}:${PORT_HTTPS}:443
+      - ${IP}:${PORT_HTTPs}:443
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
       - ./certbot-etc:/etc/letsencrypt
       - ./public:/var/www/html
+    links:
+      - php-fpm
     networks:
       - app-network
-      
+
   certbot:
     depends_on:
       - nginx
@@ -28,13 +32,13 @@ services:
     volumes:
       - ./certbot-etc:/etc/letsencrypt
       - ./public:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email internetnestrani.si@gmail.com --agree-tos --no-eff-email --staging -d ipsc-mobile-app.sample.si -d www.ipsc-mobile-app.sample.si
+    command: certonly --webroot --webroot-path=/var/www/html --email internetnestrani.si@gmail.com --agree-tos --no-eff-email --force-renewal -d ipsc-mobile-app.sample.si -d www.ipsc-mobile-app.sample.si
     networks:
       - app-network
 
 volumes:
   certbot-etc:
-  app:
+  public:
 
 networks:
   app-network:
