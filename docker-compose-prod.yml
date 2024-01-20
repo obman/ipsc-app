@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  php-fpm:
+    extends:
+      file: docker-compose.yml
+      service: php-fpm
+
+  nginx:
+    extends:
+      file: docker-compose.yml
+      service: nginx
+    ports:
+      - ${IP}:${PORT_HTTP}:80
+      - ${IP}:${PORT_HTTPS}:443
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./config/nginx/options-ssl-nginx.conf:/etc/nginx/conf.d/options-ssl-nginx.conf
+      - ./certbot-etc:/etc/letsencrypt
+      - ./public:/var/www/html
+    links:
+      - php-fpm
+    networks:
+      - app-network
+
+  certbot:
+    depends_on:
+      - nginx
+    image: certbot/certbot
+    volumes:
+      - ./certbot-etc:/etc/letsencrypt
+      - ./public:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email internetnestrani.si@gmail.com --agree-tos --no-eff-email --force-renewal -d ipsc-mobile-app.sample.si -d www.ipsc-mobile-app.sample.si
+    networks:
+      - app-network
+
+volumes:
+  certbot-etc:
+  public:
+
+networks:
+  app-network:
+    driver: bridge
