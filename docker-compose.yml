@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  php:
+    image: php:8.3-fpm
+    volumes:
+      - ./config/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./public
+    networks:
+    - app-network
+      
+  nginx:
+    image: nginx:latest
+    ports:
+      - ${IP}:${PORT_HTTP}:80
+      - ${IP}:${PORT_HTTPS}:443
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./certbot-etc:/etc/letsencrypt
+      - ./public:/var/www/html
+    networks:
+      - app-network
+      
+  certbot:
+    depends_on:
+      - nginx
+    image: certbot/certbot
+    volumes:
+      - ./certbot-etc:/etc/letsencrypt
+      - ./public:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email internetnestrani.si@gmail.com --agree-tos --no-eff-email --staging -d ipsc-mobile-app.sample.si -d www.ipsc-mobile-app.sample.si
+    networks:
+      - app-network
+
+volumes:
+  certbot-etc:
+  app:
+
+networks:
+  app-network:
+    driver: bridge

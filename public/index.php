@@ -64,7 +64,7 @@
         </div>
         <p>Developed with <i class="fa fa-magic"></i> and <i class="fa fa-beer"></i></p>
         <?php date_default_timezone_set( 'Europe/Ljubljana' ); ?>
-        <small>&copy; Copyright <?= date( 'Y' ); ?> Yetac. All Rights Reserved.</small>
+        <small>&copy; Copyright <?= date( 'Y' ); ?> IPSC Training App. All Rights Reserved.</small>
     </footer>
 </div>
 <script src="assets/js/script.min.js"></script>
