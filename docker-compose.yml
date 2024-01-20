@@ -22,6 +22,7 @@ services:
       - app-network
 
 volumes:
+  config:
   public:
 
 networks:
