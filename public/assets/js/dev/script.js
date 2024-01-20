@@ -13,18 +13,22 @@
  *
  *     0. You just DO WHAT THE FUCK YOU WANT TO.
  */
-( function( window, document ) {
+( ( _this ) => {
 
+    const
+        window    = _this.window,
+        document= _this.document
+    ;
     /**
      * Namespaces
      * @type {*|{}}
      */
-    var IPSC = IPSC || {};
+    const IPSC = IPSC || {};
 
     /**
      * Declarations
      */
-    var synth,
+    let synth,
         aimbot_drill_start,
         aimbot_drill_stop,
         aimbot_drill_range_slider,
@@ -34,7 +38,7 @@
         aimbot_storage_wrapper,
         aimbot_storage_section;
 
-    document.onreadystatechange = function() {
+    document.onreadystatechange = () => {
         if ( document.readyState == 'complete' ) {
 
             /**
@@ -56,8 +60,8 @@
              */
             // AimBot Drill Starter
             aimbot_drill_start.addEventListener( 'click', function() {
-                var _cycle_index = 1,
-                    _that = this;
+                const _that = this;
+                let _cycle_index = 1;
 
                 this.classList.toggle( 'active' );
                 IPSC.AimBotStorage.AimBotCycleTmpData = [];
@@ -105,7 +109,7 @@
 
     // Functions
     function get_voice( voices, voice_name ) {
-        var _data = {};
+        let _data = {};
 
         voices.forEach( function( voice ) {
             if ( voice.name === voice_name ) _data = voice;
@@ -116,10 +120,9 @@
     }
 
     function display_cycle( wrapper, section ) {
-        var _classdisabled = 'ipsc--disabled',
-            _html,
-            _index = 0,
+        const _classdisabled = 'ipsc--disabled',
             _app_cycle = IPSC.AimBotStorage.AimBotTrainingCycles || 0;
+        let _index = 0, _html;
 
         if ( wrapper.classList.contains( _classdisabled ) ) wrapper.classList.remove( _classdisabled );
 
@@ -148,8 +151,8 @@
 
     IPSC.AimBotDrill = function()
     {
-        var speak_rand_num = function() {
-            var _index = 0,
+        const speak_rand_num = function() {
+            let _index = 0,
                 _rand_num = 0,
                 _cycle_data = [];
 
@@ -164,11 +167,11 @@
             IPSC.AimBotStorage.AimBotCycleTmpData.push( _cycle_data );
         };
 
-        var set_lang = function( lang ) {
+        const set_lang = function( lang ) {
             AimBotDrillPublic.utter.lang = lang;
         };
 
-        var AimBotDrillPublic = {
+        const AimBotDrillPublic = {
             cycles    : 1,
             delayer   : 1,
             timer     : 1,
@@ -182,4 +185,4 @@
 
     }();
 
-} )( window, document );
+} )( this );
