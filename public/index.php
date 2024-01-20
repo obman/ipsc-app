@@ -67,6 +67,6 @@
         <small>&copy; Copyright <?= date( 'Y' ); ?> IPSC Training App. All Rights Reserved.</small>
     </footer>
 </div>
-<script src="assets/js/script.min.js"></script>
+<script src="assets/js/script.min.js" defer></script>
 </body>
 </html>
