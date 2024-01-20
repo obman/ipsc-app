@@ -27,6 +27,7 @@ services:
     depends_on:
       - nginx
     image: certbot/certbot
+    container_name: certbot
     volumes:
       - ./certbot-etc:/etc/letsencrypt
       - ./public:/var/www/html
