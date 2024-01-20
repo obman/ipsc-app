@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  php-fpm:
+  php:
     extends:
       file: docker-compose.yml
       service: php-fpm
 
-  nginx:
+  webserver:
     extends:
       file: docker-compose.yml
       service: nginx
@@ -18,8 +18,6 @@ services:
       - ./config/nginx/options-ssl-nginx.conf:/etc/nginx/conf.d/options-ssl-nginx.conf
       - ./certbot-etc:/etc/letsencrypt
       - ./public:/var/www/html
-    links:
-      - php-fpm
     networks:
       - app-network
 
