@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  php-fpm:
+    image: php:8-fpm
+    container_name: php-fpm
+    volumes:
+      - ./config/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./public:/var/www/html
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - ${IP}:${PORT_HTTP}:80
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./certbot-etc:/etc/letsencrypt
+      - ./public:/var/www/html
+    links:
+      - php-fpm
+    networks:
+      - app-network
+
+volumes:
+  public:
+
+networks:
+  app-network:
+    driver: bridge
