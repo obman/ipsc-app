@@ -6,7 +6,7 @@ services:
     container_name: php-fpm
     volumes:
       - ./config/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
-      - ./public:/var/www/html
+      - ./public:${WEBROOT}
     networks:
       - app-network
 
@@ -20,7 +20,7 @@ services:
       - ./config/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./config/nginx/options-ssl-nginx.conf:/etc/nginx/conf.d/options-ssl-nginx.conf
       - ./certbot-etc:/etc/letsencrypt
-      - ./public:/var/www/html
+      - ./public:${WEBROOT}
     links:
       - php-fpm
     networks:
@@ -33,8 +33,8 @@ services:
     container_name: certbot
     volumes:
       - ./certbot-etc:/etc/letsencrypt
-      - ./public:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL} --agree-tos --no-eff-email ${SSL_ENV} -d ${DOMAIN} -d www.${DOMAIN}
+      - ./public:${WEBROOT}
+    command: certonly --webroot --webroot-path=${WEBROOT} --email ${EMAIL} --agree-tos --no-eff-email ${SSL_ENV} -d ${DOMAIN} -d www.${DOMAIN}
     networks:
       - app-network
 

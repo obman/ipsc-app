@@ -2,15 +2,6 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        bower: {
-            install: {
-                options: {
-                    targetDir: 'assets/lib',
-                    layout: 'byType'
-                }
-            }
-        },
-
         copy: {
             main: {
                 files: [
@@ -53,7 +44,6 @@ module.exports = function(grunt) {
                 },
 
                 processors: [
-                    require('pixrem')(),
                     require('autoprefixer')({browsers: 'last 2 versions'}),
                     require('cssnano')({zindex: false})
                 ]
@@ -114,12 +104,10 @@ module.exports = function(grunt) {
     });
 
     // Handling dependencies
-    grunt.loadNpmTasks( 'grunt-bower-task' );
     grunt.loadNpmTasks( 'grunt-contrib-copy' );
 
     // Handling custom scripts
     grunt.loadNpmTasks( 'grunt-concat-css' );
-    grunt.loadNpmTasks( 'grunt-postcss' );
     grunt.loadNpmTasks( 'grunt-contrib-concat' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
     grunt.loadNpmTasks( 'grunt-contrib-watch' );
@@ -127,9 +115,6 @@ module.exports = function(grunt) {
     /**
      * TASKS
      */
-    // BOWER
-    grunt.registerTask( 'load', [ 'bower', 'copy' ] );
-
     // CSS
     grunt.registerTask( 'css', [ 'concat_css', 'postcss' ] );
 
