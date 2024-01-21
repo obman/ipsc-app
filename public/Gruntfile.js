@@ -37,19 +37,15 @@ module.exports = function(grunt) {
             }
         },
 
-        postcss: {
-            options: {
-                map: {
-                    inline: false
-                },
-
-                processors: [
-                    require('cssnano')({zindex: false})
-                ]
-            },
-            app: {
-                src: 'assets/css/built/style.css',
-                dest: 'assets/css/style.min.css'
+        cssmin: {
+            target: {
+                files: [{
+                    expand: true,
+                    cwd: 'assets/css/built/',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'assets/css/',
+                    ext: '.min.css'
+                }]
             }
         },
 
@@ -106,7 +102,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks( 'grunt-contrib-copy' );
 
     // Handling custom scripts
-    grunt.loadNpmTasks('grunt-postcss');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks( 'grunt-concat-css' );
     grunt.loadNpmTasks( 'grunt-contrib-concat' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
@@ -116,7 +112,7 @@ module.exports = function(grunt) {
      * TASKS
      */
     // CSS
-    grunt.registerTask( 'css', [ 'concat_css', 'postcss' ] );
+    grunt.registerTask( 'css', [ 'concat_css', 'cssmin' ] );
 
     // JS
     grunt.registerTask( 'js', [ 'concat', 'uglify' ] );
