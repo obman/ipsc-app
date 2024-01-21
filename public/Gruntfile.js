@@ -50,6 +50,12 @@ module.exports = function(grunt) {
         },
 
         concat: {
+            ipsc_class: {
+                src: [
+                    'assets/js/dev/IPSC_Class.js'
+                ],
+                dest: 'assets/js/built/IPSC_Class.js'
+            },
             app: {
                 src: [
                     'assets/js/dev/script.js'
@@ -64,6 +70,7 @@ module.exports = function(grunt) {
                     sourceMap: true
                 },
                 files: {
+                    'assets/js/IPSC_Class.min.js': 'assets/js/built/IPSC_Class.js',
                     'assets/js/script.min.js': 'assets/js/built/script.js'
                 }
             }
