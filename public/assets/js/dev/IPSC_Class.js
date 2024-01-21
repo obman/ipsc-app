@@ -54,6 +54,10 @@ class IPSC_AimBot {
         this.DrillData.utter = _utter;
     }
 
+    resetCycleTmpData() {
+        this.AimBotCycleTmpData = [];
+    }
+
     speak_rand_num = function(synth) {
         let _index = 0,
             _rand_num = 0,
@@ -67,6 +71,6 @@ class IPSC_AimBot {
             synth.speak( this.drillData.utter );
         }
 
-        this.cycleTmpData.push( _cycle_data );
+        this.cycleTmpData = _cycle_data;
     }
 }

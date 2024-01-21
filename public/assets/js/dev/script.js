@@ -13,15 +13,13 @@
  *
  *     0. You just DO WHAT THE FUCK YOU WANT TO.
  */
-( (_this, IPSC_Class) => {
+( (_this, IPSC_AimBot) => {
     const
         window    = _this.window,
         document= _this.document
     ;
 
-    const IPSC = new IPSC_Class();
-    console.log ( IPSC );
-    console.log ( IPSC.cycleTmpData );
+    const IPSC = new IPSC_AimBot();
 
     /**
      * Declarations
@@ -70,9 +68,6 @@
                 IPSC.range_num = 2; // torso <-> head
                 IPSC.utter     = new SpeechSynthesisUtterance;
 
-                console.log ( IPSC.cycleTmpData );
-                console.log ( IPSC.drillData );
-
                 // Utter Settings
                 // Causing problems as voices are not async loaded as it app on mobile devices
                 //if ( synth.onvoiceschanged !== undefined ) IPSC.AimBotDrill.utter.voice = get_voice( synth.getVoices(), 'Victoria' );
@@ -86,12 +81,14 @@
                             else {
                                 clearInterval( aimbot_interval );
                                 _that.classList.remove( 'active' );
+                                //console.log ( IPSC.cycleTmpData );
                                 IPSC.cycleData = IPSC.cycleTmpData;
+                                IPSC.resetCycleTmpData();
                                 display_cycle( aimbot_storage_wrapper, aimbot_storage_section );
                             }
                             _cycle_index++;
-                        }, IPSC.AimBotDrill.timer * 1000 );
-                    }, IPSC.AimBotDrill.delayer * 1000 );
+                        }, IPSC.drillData.timer * 1000 );
+                    }, IPSC.drillData.delayer * 1000 );
                 }
             }, true );
 
@@ -130,53 +127,12 @@
         _html = '<div class="ipsc-aimbot-cycle-round">';
         _html += '<p>' + ( _app_cycle + 1 ) + '. session</p>';
         for ( ; _index < IPSC.cycleData[_app_cycle].length; _index++ ) {
-            _html += '<div class="cell">' + ( _index + 1 ) + ': ' + IPSC.cycleData[_app_cycle].join( ', ' ) + '</div>';
+            _html += '<div class="cell">' + ( _index + 1 ) + ': ' + IPSC.cycleData[_app_cycle][_index].join( ', ' ) + '</div>';
         }
         _html += '</div>';
 
         IPSC.trainingCycles++;
         section.innerHTML += _html;
     }
-
-
-    /**
-     * Modules
-     */
-
-    IPSC.AimBotDrill = function()
-    {
-        const speak_rand_num = function() {
-            let _index = 0,
-                _rand_num = 0,
-                _cycle_data = [];
-
-            for ( ; _index < AimBotDrillPublic.range_num; _index++ ) {
-                _rand_num = Math.floor( Math.random() * AimBotDrillPublic.range ) + 1;
-                _cycle_data.push( _rand_num );
-
-                AimBotDrillPublic.utter.text = _rand_num;
-                synth.speak( AimBotDrillPublic.utter );
-            }
-
-            IPSC.cycleTmpData.push( _cycle_data );
-        };
-
-        const set_lang = function( lang ) {
-            AimBotDrillPublic.utter.lang = lang;
-        };
-
-        const AimBotDrillPublic = {
-            cycles    : 1,
-            delayer   : 1,
-            timer     : 1,
-            range     : 1,
-            range_num : 2,
-            utter     : {},
-            speak_rand_num : speak_rand_num
-        };
-
-        return AimBotDrillPublic;
-
-    }();
 
 } )(this, IPSC_AimBot);
