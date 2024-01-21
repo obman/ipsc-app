@@ -44,7 +44,6 @@ module.exports = function(grunt) {
                 },
 
                 processors: [
-                    require('autoprefixer')({browsers: 'last 2 versions'}),
                     require('cssnano')({zindex: false})
                 ]
             },
@@ -107,6 +106,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks( 'grunt-contrib-copy' );
 
     // Handling custom scripts
+    grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks( 'grunt-concat-css' );
     grunt.loadNpmTasks( 'grunt-contrib-concat' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
