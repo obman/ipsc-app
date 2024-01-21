@@ -16,13 +16,13 @@ services:
     ports:
       - ${IP}:${PORT_HTTP}:80
       - ${IP}:${PORT_HTTPS}:443
+    extra_hosts:
+      - ${DOMAIN}:${IP}
     volumes:
-      - ./config/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ${NGINX_CONF}:/etc/nginx/conf.d/default.conf
       - ./config/nginx/options-ssl-nginx.conf:/etc/nginx/conf.d/options-ssl-nginx.conf
       - ./certbot-etc:/etc/letsencrypt
       - ./public:${WEBROOT}
-    links:
-      - php-fpm
     networks:
       - app-network
 
