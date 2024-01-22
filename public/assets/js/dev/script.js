@@ -15,11 +15,10 @@
  */
 ( (_this, IPSC_AimBot) => {
     const
-        window    = _this.window,
-        document= _this.document
+        window   = _this.window,
+        document = _this.document,
+        IPSC     = new IPSC_AimBot()
     ;
-
-    const IPSC = new IPSC_AimBot();
 
     /**
      * Declarations
@@ -35,7 +34,7 @@
         aimbot_storage_section;
 
     document.onreadystatechange = () => {
-        if ( document.readyState == 'complete' ) {
+        if ( document.readyState === 'complete' ) {
 
             /**
              * Definitions
@@ -80,10 +79,12 @@
                             }
                             else {
                                 clearInterval( aimbot_interval );
+
                                 _that.classList.remove( 'active' );
-                                //console.log ( IPSC.cycleTmpData );
+
                                 IPSC.cycleData = IPSC.cycleTmpData;
                                 IPSC.resetCycleTmpData();
+
                                 display_cycle( aimbot_storage_wrapper, aimbot_storage_section );
                             }
                             _cycle_index++;

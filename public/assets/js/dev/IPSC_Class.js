@@ -58,7 +58,7 @@ class IPSC_AimBot {
         this.AimBotCycleTmpData = [];
     }
 
-    speak_rand_num = function(synth) {
+    async speak_rand_num(synth) {
         let _index = 0,
             _rand_num = 0,
             _cycle_data = [];
@@ -68,7 +68,7 @@ class IPSC_AimBot {
             _cycle_data.push( _rand_num );
 
             this.drillData.utter.text = _rand_num;
-            synth.speak( this.drillData.utter );
+            await synth.speak( this.drillData.utter );
         }
 
         this.cycleTmpData = _cycle_data;
