@@ -1,18 +1,18 @@
 version: '3'
 
 services:
-  php-fpm:
+  ipsc-practice-app-php-fpm:
     image: php:8-fpm
-    container_name: php-fpm
+    container_name: ipsc-practice-app-php-fpm
     volumes:
       - ./config/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./public:${WEBROOT}
     networks:
       - app-network
 
-  nginx:
+  ipsc-practice-app-nginx:
     image: nginx:latest
-    container_name: nginx
+    container_name: ipsc-practice-app-nginx
     ports:
       - "80:80"
       - "443:443"
@@ -26,11 +26,11 @@ services:
     networks:
       - app-network
 
-  certbot:
+  ipsc-practice-app-certbot:
     depends_on:
-      - nginx
+      - ipsc-practice-app-nginx
     image: certbot/certbot
-    container_name: certbot
+    container_name: ipsc-practice-app-certbot
     volumes:
       - ./certbot-etc:/etc/letsencrypt
       - ./public:${WEBROOT}
