@@ -14,8 +14,7 @@ services:
     image: nginx:latest
     container_name: ipsc-practice-app-nginx
     ports:
-      - "80:80"
-      - "443:443"
+      - ${PORT}:${PORT}
     extra_hosts:
       - ${DOMAIN}:${IP}
     volumes:
@@ -23,6 +22,9 @@ services:
       - ./config/nginx/options-ssl-nginx.conf:/etc/nginx/conf.d/options-ssl-nginx.conf
       - ./certbot-etc:/etc/letsencrypt
       - ./public:${WEBROOT}
+    environment:
+      PORT: ${PORT}
+      DOMAIN: ${DOMAIN}
     networks:
       - app-network
 
