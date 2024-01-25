@@ -19,8 +19,6 @@ services:
       - ${DOMAIN}:${IP}
     volumes:
       - ${NGINX_CONF}:/etc/nginx/conf.d/default.conf
-      - ./config/nginx/options-ssl-nginx.conf:/etc/nginx/conf.d/options-ssl-nginx.conf
-      - ./certbot-etc:/etc/letsencrypt
       - ./public:${WEBROOT}
     environment:
       PORT: ${PORT}
@@ -28,23 +26,10 @@ services:
     networks:
       - app-network
 
-  ipsc-practice-app-certbot:
-    depends_on:
-      - ipsc-practice-app-nginx
-    image: certbot/certbot
-    container_name: ipsc-practice-app-certbot
-    volumes:
-      - ./certbot-etc:/etc/letsencrypt
-      - ./public:${WEBROOT}
-    networks:
-      - app-network
-
 volumes:
-  certbot-etc:
   config:
   public:
 
 networks:
   app-network:
     external: true
-    #driver: bridge
