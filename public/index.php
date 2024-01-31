@@ -7,7 +7,7 @@
  */
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,9 +44,9 @@
                 </div>
                 <form id="ipsc-aimbot-drill">
                     <div class="labels-wrapper ipsc-content--box-centered">
-                        <label class="cf"><span>How many cycles :</span> <input id="ipsc-aimbot-cycles" type="number" min="1" value="1"></label>
-                        <label class="cf"><span>Start delay (second) :</span> <input id="ipsc-aimbot-start-delay" type="number" min="1" value="1"></label>
-                        <label class="cf"><span>Delay between shots (second) :</span> <input id="ipsc-aimbot-cycle-delay" type="number" min="1" value="1"></label>
+                        <label class="cf" for="ipsc-aimbot-cycles"><span>How many cycles :</span> <input id="ipsc-aimbot-cycles" type="number" min="1" value="1"></label>
+                        <label class="cf" for="ipsc-aimbot-start-delay"><span>Start delay (second) :</span> <input id="ipsc-aimbot-start-delay" type="number" min="1" value="1"></label>
+                        <label class="cf" for="ipsc-aimbot-cycle-delay"><span>Delay between shots (second) :</span> <input id="ipsc-aimbot-cycle-delay" type="number" min="1" value="1"></label>
                     </div>
                     <div class="field-wrapper" data-index="0">
                         <p>How many targets will be used?</p>
