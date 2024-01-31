@@ -49,8 +49,10 @@
                         <label class="cf" for="ipsc-aimbot-cycle-delay"><span>Delay between shots (second) :</span> <input id="ipsc-aimbot-cycle-delay" type="number" min="1" value="1"></label>
                     </div>
                     <div class="field-wrapper" data-index="0">
-                        <p>How many targets will be used?</p>
-                        <p><span>1</span> <input id="ipsc-aimbot-drill-range-slider" type="range" class="ipsc-aimbot-array" min="1" max="20" value="1"> <span>20</span></p>
+                        <label for="ipsc-aimbot-drill-range-slider">
+                            <span>How many targets will be used?</span><br>
+                            <span><span>1</span> <input id="ipsc-aimbot-drill-range-slider" type="range" class="ipsc-aimbot-array" min="1" max="20" value="1"> <span>20</span></span>
+                        </label>
                     </div>
                     <p id="ipsc-aimbot-drill-selected-range-number" class="ipsc-text--centered">1</p>
                     <button id="ipsc-aimbot-drill-start" class="ipsc-text--centered" type="button">START DRILL</button>
