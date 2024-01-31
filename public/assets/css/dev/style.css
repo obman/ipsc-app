@@ -1,7 +1,11 @@
 /*! IPSC app v1.0.0 | WTFPL License */
+:root {
+    --app-main-color: #46515a;
+    --app-secondary-color: #eb9130;
+}
 
 html {
-    background-color: #46515a;
+    background-color: var(--app-main-color);
 }
 
 body {
@@ -18,7 +22,7 @@ p {
 
 a {
     text-decoration: none;
-    color: #eb9130;
+    color: var(--app-secondary-color);
 }
 
 
@@ -160,8 +164,8 @@ a {
     box-sizing: border-box;
     padding-top: 48px;
     padding-bottom: 24px;
-    color: #eb9130;
-    background-color: #46515a;
+    color: var(--app-secondary-color);
+    background-color: var(--app-main-color);
 }
 
 @media (max-width: 479px) {
@@ -181,12 +185,12 @@ a {
 }
 
 .ipsc-app--socials-wrapper a.fa:hover {
-    color: #c96e0d;
+    color: var(--app-secondary-color);
 }
 
 .ipsc-app--footer-main small {
     padding-top: 4px;
-    border-top: 1px solid #eb9130;
+    border-top: 1px solid var(--app-secondary-color);
 }
 
 

@@ -40,7 +40,7 @@
                 <div class="main-text-content">
                     <p><strong>* Notice :</strong> at this time only <strong>Chrome</strong> browser is supported.</p>
                     <p>Application is intended to give support for T.REX ARMS Aimbot Drill. If you don't have buddy to yell the numbers, you can use this application.</p>
-                    <p>LINK : <a href="https://www.youtube.com/watch?v=Q4wKWsCFAfU" target="_blank">Aimbot Drill to Increase Target Acquisition Speed</a></p>
+                    <p>LINK : <a href="https://www.youtube.com/watch?v=Q4wKWsCFAfU" target="_blank"><strong>Aimbot Drill to Increase Target Acquisition Speed</strong></a></p>
                 </div>
                 <form id="ipsc-aimbot-drill">
                     <div class="labels-wrapper ipsc-content--box-centered">
@@ -66,12 +66,14 @@
         </div>
     </main>
     <footer class="ipsc-app--footer-main ipsc-text--centered">
-        <div class="ipsc-app--socials-wrapper">
+        <?php
+        /*<div class="ipsc-app--socials-wrapper">
             <a href="#" class="fa fa-facebook-square" title="Facebook Sharer" target="_blank"></a>
             <a href="#" class="fa fa-twitter-square" title="Twitter Sharer" target="_blank"></a>
             <a href="#" class="fa fa-google-plus-square" title="Google+ Sharer" target="_blank"></a>
             <a href="#" class="fa fa-pinterest-square" title="Pinterest Sharer" target="_blank"></a>
-        </div>
+        </div>*/
+        ?>
         <p>Developed with <i class="fa fa-magic"></i> and <i class="fa fa-beer"></i></p>
         <?php date_default_timezone_set( 'Europe/Ljubljana' ); ?>
         <small>&copy; Copyright <?= date( 'Y' ); ?> IPSC Training App. All Rights Reserved.</small>
